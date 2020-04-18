@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"time"
+	"os"
 
 	"github.com/gorilla/mux"
 )
@@ -12,16 +12,13 @@ import (
 func main() {
 	fmt.Println("Hello, goma-bot")
 
-	r := mux.NewRouter()
-	r.HandleFunc("/slack", HandlerChallange)
-
-	srv := &http.Server{
-		Handler: r,
-		Addr:    ":8080",
-		// Good practice: enforce timeouts for servers you create!
-		WriteTimeout: 15 * time.Second,
-		ReadTimeout:  15 * time.Second,
+	port := os.Getenv("PORT")
+	if port == "" {
+		log.Fatal("$PORT must be set")
 	}
 
-	log.Fatal(srv.ListenAndServe())
+	r := mux.NewRouter()
+	r.HandleFunc("/slack", HandlerChallange)
+	addr := ":" + port
+	http.ListenAndServe(addr, r)
 }

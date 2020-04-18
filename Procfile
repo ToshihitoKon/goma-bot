@@ -1,1 +1,1 @@
-web: main
+web: bin/goma-bot
