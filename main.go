@@ -6,17 +6,17 @@ import (
 	"net/http"
 	"os"
 
-	"./slack"
+	"github.com/ToshihitoKon/goma-bot/slack"
 	"github.com/gorilla/mux"
 )
 
 func main() {
-	fmt.Println("Hello, goma-bot")
-
 	port := os.Getenv("PORT")
 	if port == "" {
 		log.Fatal("$PORT must be set")
 	}
+
+	fmt.Println("Hello, goma-bot")
 
 	r := mux.NewRouter()
 	r.HandleFunc("/slack", slack.HandlerSlack)
