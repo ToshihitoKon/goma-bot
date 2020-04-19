@@ -1,4 +1,4 @@
-package main
+package slack
 
 import (
 	"bytes"
@@ -9,11 +9,12 @@ import (
 	"github.com/slack-go/slack/slackevents"
 )
 
-func HandlerChallange(w http.ResponseWriter, r *http.Request) {
+func HandlerSlack(w http.ResponseWriter, r *http.Request) {
 	verificationToken := os.Getenv("GOMABOT_SLACK_VERIFICATION_TOKEN")
 	buf := new(bytes.Buffer)
 	buf.ReadFrom(r.Body)
 	body := buf.String()
+
 	eventsAPIEvent, e := slackevents.ParseEvent(
 		json.RawMessage(body),
 		slackevents.OptionVerifyToken(

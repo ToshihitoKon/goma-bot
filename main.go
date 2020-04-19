@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 
+	"./slack"
 	"github.com/gorilla/mux"
 )
 
@@ -18,7 +19,7 @@ func main() {
 	}
 
 	r := mux.NewRouter()
-	r.HandleFunc("/slack", HandlerChallange)
+	r.HandleFunc("/slack", slack.HandlerSlack)
 	addr := ":" + port
 	http.ListenAndServe(addr, r)
 }
